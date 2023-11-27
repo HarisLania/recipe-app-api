@@ -1,0 +1,21 @@
+# version of docker-compose syntax
+version: "3.9"
+
+# app is the name of our service, which will run our dockerfile
+# build context . means to build dockerfile inside current/root dir
+# port mapping: maps port 8000 from local machine to port 8000 inside docker container
+# volumes are way of mapping directories from system to docker container, so new changes can reflect to running container
+# command to run the service
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
